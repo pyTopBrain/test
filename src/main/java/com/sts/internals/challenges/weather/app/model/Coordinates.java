@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class Coordinates implements Serializable {
     private String latitude;
     private String longitude;
+
 }

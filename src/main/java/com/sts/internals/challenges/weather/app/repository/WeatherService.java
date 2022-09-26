@@ -1,11 +1,10 @@
 package com.sts.internals.challenges.weather.app.repository;
 
+
 import com.sts.internals.challenges.weather.app.model.Coordinates;
 import com.sts.internals.challenges.weather.app.model.WeatherDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -24,20 +23,24 @@ public class WeatherService {
         this.template = template;
     }
 
+
+
     public WeatherDetails createWeatherDetail(Coordinates coordinates){
 
         return null;
     }
-    HttpClient httpClient = HttpClient.create()
+    /*HttpClient httpClient = HttpClient.create()
             .resolver(spec -> spec.queryTimeout(Duration.ofSeconds(100)));
-
-    WebClient client = WebClient.builder()
-            .clientConnector(new ReactorClientHttpConnector(httpClient))
-            .build();
-    public Mono<WeatherDetails> retrieveWeatherDetail(Coordinates coordinates){
+*/
+    @Autowired
+    WebClient client ;//= WebClient.builder()
+    //        .clientConnector(new ReactorClientHttpConnector(httpClient))
+            //.build();
+    public Mono<Object> retrieveWeatherDetail(Coordinates coordinates){
       String uri="http://api.openweathermap.org/data/2.5/air_pollution/forecast";
 
-        Mono<WeatherDetails> weatherDetailsFlux = client
+
+        Mono<Object> weatherDetailsFlux = client
                 .get()
                 .uri(uriBuilder -> uriBuilder.path(uri)
                         .queryParam("lat",coordinates.getLatitude())
@@ -45,7 +48,7 @@ public class WeatherService {
                         .queryParam("appid","0403f631daf8ca0e022636ee2fd0e193")
                         .build())
                 .retrieve()
-                .bodyToMono(WeatherDetails.class);
+                .bodyToMono(Object.class);
                 return weatherDetailsFlux;
     }
 }
